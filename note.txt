@@ -46,3 +46,18 @@ Jquery：
 
 	even:偶数，从0开始计算。  0 , 2 , 4 , 6
 	odd:奇数，从0开始计算。    1 , 3 , 5 ..
+
+	找到属性为li的最后一个或者第一个：第一个（first()|[]:first）,最后一个（last()|[]:last）
+	$('li[class="li"]').first().css('background','red');
+	$('li[class="li"]:last').css('background','red');
+
+	:first-child，找到一组兄弟元素的第一个
+	$('li:first-child').css('background','red');
+	$('li:last-child').css('background','red');
+	
+	:gt(index)
+		找到相同元素 大于某个index值
+	:lt(index)
+		找到相同元素 小于某个index值
+	:eq(index)
+		找到相同元素 指定某个index值
