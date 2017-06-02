@@ -22,42 +22,80 @@ Jquery：
 		$('#div').toggle(500);//显示或隐藏
 		$('#div').css('background','yellow');
 	});
-	
+
 	$('div[class|="div"]')
 	<div class="div">1</div>
-	<div class="div-box">3</div>
+	<div class="div-box">3</div>
 
 	$('div[class*="div"]')
 	<div class="div">1</div>
 	<div class="div1">2</div>
 	<div class="div-box">3</div>
-	<div class="name-div">5</div>
+	<div class="name-div">5</div>
 
 	$('div[class$="div"]')
 	$('div[class^="div"]')
 	属性：[key $= value]:找到只要value值结尾的所有元素
-	[key ^= value]:找到只要value值开头的所有元素
+	[key ^= value]:找到只要value值开头的所有元素
 
-	[class!="div"] :找到class不为div的所有
-	
+	[class!="div"] :找到class不为div的所有
+
 	 $(':button')  找到所有input为button的元素
 	 $(':checkbox') 找到所有input为checkbox的元素
 	 $(':checked') 选中的checkbox元素
 
 	even:偶数，从0开始计算。  0 , 2 , 4 , 6
-	odd:奇数，从0开始计算。    1 , 3 , 5 ..
+	odd:奇数，从0开始计算。    1 , 3 , 5 ..
 
 	找到属性为li的最后一个或者第一个：第一个（first()|[]:first）,最后一个（last()|[]:last）
 	$('li[class="li"]').first().css('background','red');
-	$('li[class="li"]:last').css('background','red');
+	$('li[class="li"]:last').css('background','red');
 
 	:first-child，找到一组兄弟元素的第一个
 	$('li:first-child').css('background','red');
-	$('li:last-child').css('background','red');
-	
+	$('li:last-child').css('background','red');
+
 	:gt(index)
 		找到相同元素 大于某个index值
 	:lt(index)
 		找到相同元素 小于某个index值
 	:eq(index)
 		找到相同元素 指定某个index值
+
+	html:
+		就当做innerHTML(放标签就变为标签)
+	text:
+		专门来操作元素的文本内容的（放标签就变为文本内容显示）
+	$('#div1').html('<div>123456</div>');
+	$('#div1').text('<div>123456</div>');
+
+	console.log($('li').length);
+
+	循环:
+	$(ele).each(function(索引,元素){})
+	var arr = ['第一个内容','第二个内容','第三个内容','第四个内容','第四个内容'];
+	$('li').each(function(index,ele){
+		//ele 不是JQ对象，是原生的对象，如果要使用JQ的方法，那么要用$(包一下)
+		$(ele).click(function(){
+			$(ele).text(arr[index]);
+		});
+	});
+
+	$(this)
+	 	JQ中可以写原生
+	 	但是原生不能写JQ,因为原生对象不是JQ对象
+
+	css()
+	参数：
+		字符串：1个为获取
+		对象:批量化设置
+				
+		2个
+		设置。
+	console.log($('li').css({
+		'width':200,
+		'height':200,
+		'background':'greenyellow',
+		'marginTop':10
+	}));
+	console.log($('li').css('width','200px'));
