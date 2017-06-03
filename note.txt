@@ -99,3 +99,118 @@ Jquery：
 		'marginTop':10
 	}));
 	console.log($('li').css('width','200px'));
+
+	如果原生要用jQ，那么用$()包一下，就让原生对象变成了JQ对象
+	JQ对象转原生对象用get(index),转完之后就可以用原生的方法了
+	或者直接用下标[index];
+	$(document).click(function(){
+		//console.log($('#tex').scrollHeight())
+		//console.log($('#tex').get(0).scrollHeight)
+		console.log($('#tex')[0].scrollHeight);
+	});
+	添加class   addClass(class名)
+	删除class   removeClass(class名)
+	$(this)  ->  一般触发事件的元素
+	index() ->  能够自动匹配*当前的元素在兄弟节点中的索引位置*。
+	一般用index的时候，最好在index(精确匹配要找的元素)
+	get(num)与eq(num)的区别：
+		相同点：
+			都是找索引对应的元素
+		不同点:
+			get是将JQ对象转原生，这个时候就用不了JQ的方法了（原生元素）
+			eq是JQ元素
+	siblings:以当前元素为基准，别的所有兄弟元素，所以一般使用需要在siblings(给个精确的范围)
+	$(':button').click(function(){
+		$(this).addClass('active').siblings('input').removeClass('active');
+		//$('#box div').eq($(this).index()).addClass('show').siblings('div').removeClass('show');
+		$('#box div').eq($(this).index('input')).show().siblings('div').hide();
+		
+	});
+	//链式操作
+	$(document).click(function(){
+		$('#box').css({
+			width:100,
+			height:100
+		}).css('background','red').animate({
+			opacity:0
+		});
+	})
+	$('div').click(function(){
+		alert($(this).index())
+		return false; //既能阻止冒泡，也能阻止默认行为
+	});
+	children(); 找到某个元素下的所有子元素。
+		通过缓存一个代码块，从代码块中去获取元素，与getElementsByTagName一样，性能就高。(find('*'))
+		find找到某个元素下的所有指定的元素(可以用选择器)
+	//console.log($('#ul li'))//性能极低，先找li再找ul
+	console.log($('#ul').children())
+	console.log($ul.find('li[class^="li1"]'));
+
+	hide()   display:none
+	show()   display:block
+	$('a').click(function(){
+		$(this).parent().hide();
+	});
+	prev()  上一个兄弟节点
+	next()   下一个兄弟节点
+	first()  第一个节点
+	last()	 最后一个节点
+	例子：兄弟节点操作
+	var lis = $('li');
+	lis.mouseover(function(){
+		//移入的是第一个或者是最后一个
+		if(!$(this).prev().length || !$(this).next().length){
+			$(this).addClass('side');
+		}else{
+			//当前这个变，上个下个变
+			$(this).addClass('focus');
+			$(this).next().addClass('near');
+			$(this).prev().addClass('near');	
+		}
+		//最后一个和第一个清空
+		lis.first().removeClass('near').addClass('none');
+		lis.last().removeClass('near').addClass('none');
+	});
+	
+	lis.mouseout(function(){
+		lis.attr('class','');
+		lis.first().addClass('none');
+		lis.last().addClass('none');
+	});
+	创建元素
+		var li = document.createElement('li');
+		var li = $('<li>123</li>');
+		'<div>'+
+		'</div>'
+		字符串模板：
+			`字符串，可以换行，传数据的时候${要填的数据}`
+			`<div>
+				${num}
+			</div>`
+		添加：
+			append() 尾部添加
+			appendTo() 尾部添加  方便链式操作
+	$(document).click(function(){
+		$(`<li>
+		 	<div>
+		 		<span> ${num} </span>
+		 	</div>
+	  	</li>`).appendTo('#ul').css('width','100px');
+		num++;
+		//$('#ul').append(li);
+		
+	});
+	要添加的元素.insertAfter(添加到谁的后面)
+	要添加的元素.insertBefore(添加到谁的前面)
+		
+	添加到谁的前面.before(要添加的元素):原生的insertBefore
+	添加到谁的后面.after(要添加的元素):添加到某个元素的后面
+	var num = 1;
+	$(document).click(function(){
+		var li = $(`<li>${num}</li>`)
+		num++;
+		//$(li).insertBefore($('li').eq(0))
+		//$(li).insertAfter($('li').eq(0))
+		//$('li').eq(0).before(li) //前堆
+		$('li').eq(0).after(li);//后堆
+	});
