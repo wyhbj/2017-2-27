@@ -198,7 +198,6 @@ Jquery：
 	  	</li>`).appendTo('#ul').css('width','100px');
 		num++;
 		//$('#ul').append(li);
-		
 	});
 	要添加的元素.insertAfter(添加到谁的后面)
 	要添加的元素.insertBefore(添加到谁的前面)
@@ -213,4 +212,54 @@ Jquery：
 		//$(li).insertAfter($('li').eq(0))
 		//$('li').eq(0).before(li) //前堆
 		$('li').eq(0).after(li);//后堆
+	});
+	remove(也可以精确匹配);
+	$('p').remove('.p1');
+	DOM操作为剪切
+		replaceWith ：
+		replaceAll：
+			将所有匹配的元素替换成指定的HTML或DOM元素
+		要替换谁.replaceWith(替换成什么)。
+		替换成什么.replaceAll(要替换谁) //调个位
+	clone：
+		如果要克隆元素的事件，需要在clone(true);
+	$('#btn').click(function(){
+		var b = $('#blue').clone(true);
+		$('#red').replaceWith(b);
+	});
+	$(document).click(function(){
+		//$('#div1').removeAttr('index');
+		$('#div1')[0].dataset.index = 0;//设置
+		console.log($('#div1')[0].dataset.index);//获取
+	});
+	宽高 
+		height();  //不带单位、padding、border的 
+		width();  //不带单位的
+		传参之后可以设置。
+		innerHeight/innerWidth  带padding，不带border 
+		如果是设置，会计算padding值  200 -> padding:10 -> 180  
+		outerWidth/outerHeight  带padding,border
+		小技巧:如果在outerWidth(写true)，那么会计算margin值
+	 offset():绝对位置(当前元素到页面顶部)，返回的是一个对象属性top/left
+	 position():类似原生offsetLeft/Top
+	$(window).scroll(function(){
+		//console.log($('#div').offset())
+		console.log($('#div').position().top);
+	})
+	scrollTop
+	scrollLeft
+	滚动条的距离
+	window.scrollTo()
+例子：点击滚动
+	var arr = ['pink','yellow','green','blue','orange'];
+	arr.forEach(function(ele,index){
+		var $div = $(`<div style="background:${ele};width:${$(document).innerWidth()}px;height:${$(window).innerHeight()}px">`);
+		$(`<li>${ele}</li>`).appendTo($('#ul'));
+		$('body').append($div);
+	});
+	$('li').click(function(){
+		var $divT = $('div').eq($(this).index('li')).offset().top;
+		$('html,body').animate({
+			scrollTop:$divT
+		});
 	});
