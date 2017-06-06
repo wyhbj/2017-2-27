@@ -263,3 +263,39 @@ Jquery：
 			scrollTop:$divT
 		});
 	});
+例子：懒加载
+	for(var i=1;i<=5;i++){
+		var $lis = $(`<li><img _src="images/${i}.jpg" height="250"></li>`);
+		$('#ul').append($lis);
+	}
+	$(window).scroll(function(){
+		$('img').each(function(index,ele){
+			if($(ele).offset().top <= $(window).innerHeight()+$(document).scrollTop()){
+				if($(ele).attr('_src')){
+					$(ele).attr('src',$(ele).attr('_src'));
+					$(ele).removeAttr('_src');
+					$(ele).animate({
+						opacity:1
+					},1000);
+				}
+			}
+		});
+	});
+	JQ中的事件都是事件绑定。 
+		click()
+		mouseover
+		mouseout
+		mousemove
+		....
+	滚轮JQ是没有的
+		on('事件名','放选择器',fn)  //事件委托    deleget是如何实现的?
+		on('事件名','放选择器',数据,fn)  通过ev.data,可以拿到数据
+		阻止submit提交，可以用 $("form").on("submit", false)
+		.on('事件名','元素1,元素2',function(ev){
+			可以让不同的元素执行一个函数
+		})
+		tirgger:触发器。
+		bind  绑定
+		unbind  解除
+		on的方式绑定事件函数，要用off(可以指定解除某个事件绑定函数)来解除。
+	用JQ小心事件重复绑定
