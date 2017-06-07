@@ -299,3 +299,71 @@ Jquery：
 		unbind  解除
 		on的方式绑定事件函数，要用off(可以指定解除某个事件绑定函数)来解除。
 	用JQ小心事件重复绑定
+	hover：
+		移入移出
+		第一个参数:
+			移入
+		第二个参数:
+			移出
+		并不是onmouseover 而是 onmouseenter
+	$('#div1').hover(function(){
+		alert('我来了');
+	},function(){
+		alert('我走了');
+	});
+JQ运动
+	运动的默认快慢为normal
+	慢：slow
+	快: fast
+	toggle  显示就隐藏，隐藏就显示
+	var onOff = true;
+	$(':button').click(function(){
+		if(onOff){
+			$('#div').hide('fast');  //一般直接隐藏这样写：hide(0)
+		}else{
+			$('#div').show('slow');
+		}
+		onOff = !onOff;
+		//$('#div').toggle(300);
+	});
+	$(':button').click(function(){
+		//$('#div').slideDown('fast');
+		//$('#div').slideUp('fast');
+		$('#div').slideToggle('fast')
+	});
+	$(':button').click(function(){
+		//$('#div').fadeOut()
+		//$('#div').fadeIn();
+		$('#div').fadeToggle(500);
+	});
+	https://greensock.com/tweenmax  一个厉害的运动框架
+	animate:
+		第一个参数：
+			运动的样式
+		第二个参数:
+			运动的总时间。
+		第三个参数:（还可以写运动方式：默认为swing，可以设置：linear）
+			回调函数
+	$(':button').click(function(){
+		$('#div').animate({
+			width:500
+		},3000,'linear',function(){
+			$('#div').animate({
+				height:600
+			});
+		});
+	});
+	每触发一次运动函数，都把运动放入运动队列中（相等于是数组），当前一个
+	运动结束，出了队列，下个运动才会执行。
+	.stop();
+		停止。
+	只要用JQ的运动，就最好在animate添加一个stop()
+	$('li').hover(function(){
+		$(this).stop().animate({
+			width:200
+		});
+	},function(){
+		$(this).stop().animate({
+			width:100
+		});
+	})
